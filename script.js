@@ -104,7 +104,7 @@ const calculate = () => {
         case 'x':
             result = parseFloat(prevNumber) * parseFloat(currentNumber)
             break
-        case '/':
+        case '÷':
             result = parseFloat(prevNumber) / parseFloat(currentNumber)
             break
         default:
