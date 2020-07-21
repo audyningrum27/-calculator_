@@ -1,56 +1,18 @@
 const calculatorScreen = document.querySelector('.calculator-screen')
-let resetCount = 0;
-let conditionalSecondNumber = 0;
-let afterEqual = 0
+
+const updateScreen = (number) => {
+    calculatorScreen.value = number
+}
+
+const updateOperator = (operator) => {
+    calculatorScreen.value = operator
+}
+
+const numbers = document.querySelectorAll(".number");
 
 let prevNumber = ''
 let calculationOperator = ''
 let currentNumber = ''
-
-
-const updateScreen = (number) => {
-
-    
-    if (resetCount < 2) {
-        calculatorScreen.value = number
-        
-    } else if (resetCount === 2) {
-        if (conditionalSecondNumber === 1) {
-            tmp = calculatorScreen.value
-            conditionalSecondNumber = 0
-        } else {
-            tmp
-        }
-        
-        calculatorScreen.value = tmp + number
-    }
-}
-
-
-const updateOperator = (operator) => {
-    
-    if (resetCount < 2) {
-        
-        if (calculatorScreen.value) {
-            
-            tmp = calculatorScreen.value
-            calculatorScreen.value = tmp + operator
-            conditionalSecondNumber = 1
-        } else {
-            
-            calculatorScreen.value = operator
-        }
-        resetCount = 2
-
-    } else {
-        
-        calculatorScreen.value = operator
-        resetCount = 0
-    }
-
-}
-
-const numbers = document.querySelectorAll(".number");
 
 const inputNumber = (number) => {
     if (currentNumber === '00') {
@@ -58,9 +20,6 @@ const inputNumber = (number) => {
     }
     if (currentNumber === '0') {
         currentNumber = number
-    } else if (afterEqual == 1) {
-        currentNumber = number
-        afterEqual = 0
     } else {
         currentNumber += number
     }
@@ -114,15 +73,9 @@ const calculate = () => {
     calculationOperator = ''
 }
 
-const updateScreenEqual = (EqNum) => {
-    calculatorScreen.value = EqNum
-    afterEqual = 1
-}
-
 equalSign.addEventListener('click', () => {
     calculate()
-    resetCount = 1
-    updateScreenEqual(currentNumber)
+    updateScreen(currentNumber)
 })
 
 const clearAll = () => {
@@ -135,8 +88,7 @@ const clearBtn = document.querySelector('.all-clear')
 
 clearBtn.addEventListener('click', () => {
     clearAll()
-    resetCount = 1
-    updateScreenEqual(currentNumber)
+    updateScreen(currentNumber)
 })
 
 const decimal = document.querySelector('.decimal')
@@ -166,11 +118,14 @@ percen.addEventListener('click', () => {
 
 const back = document.querySelector('.back')
 
+const del = () => {
+    result = ''
+
+}
+
 back.addEventListener('click', () => {
-    afterEqual = 0
-    conditionalSecondNumber = 0
-    currentNumber = currentNumber.toString()
     updateScreen(
         currentNumber = currentNumber.substr(0, currentNumber.length - 1)
     )
+    del()
 })
